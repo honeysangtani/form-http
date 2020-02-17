@@ -1,6 +1,3 @@
-<p>
-  add-name works!
-</p>
 
 <div class="container wrapper wrapper2">
   <div class="row">
@@ -23,3 +20,35 @@
 
   </div>
 </div>
+
+<div class="container wrapper">
+    <div class="row">
+        <!-- Issue table -->
+        <div class="col-md-12">
+            <div class="inner">
+                <h3>Names</h3>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Message</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let name of List">
+                            <th scope="row">{{name.id}}</th>
+                            <td>{{name.name}}</td>
+                            <td>{{name.message}}</td>
+                            <td>
+                                <button type="button" class="btn btn-danger btn-sm" (click)="deleteName(name)">Remove</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+  
+    </div>
+  </div>

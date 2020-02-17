@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NameService } from 'shared/name.service';
+import {Router} from '@angular/router';
+
 
 
 @Component({

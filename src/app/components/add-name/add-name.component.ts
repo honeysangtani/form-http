@@ -11,9 +11,12 @@ import { Router } from '@angular/router';
 export class AddNameComponent implements OnInit {
   nameForm: FormGroup;
   nameArr: any = [];
+  List: any = [];
+  
 
   ngOnInit() {
-    this.addName()
+    this.loadNames();
+    this.addName();
   }
 
   constructor(
@@ -31,10 +34,35 @@ export class AddNameComponent implements OnInit {
   }
 
   submitForm() {
+  
     this.nameService.CreateName(this.nameForm.value).subscribe(res => {
       console.log('Added!')
-      this.ngZone.run(() => this.router.navigateByUrl('/name-list'))
+      this.nameArr.push(res);
+      this.loadNames();
+  
+      this.nameForm.reset();
+      // this.ngZone.run(() => this.router.navigateByUrl('/name-list'))
     });
   }
+
+   // list
+   loadNames() {
+    return this.nameService.GetNames().subscribe((data: {}) => {
+      this.List = data;
+    })
+  }
+
+    // Delete issue
+    deleteName(data){
+      // this.List = this.List.filter(h => h !== hero);
+  
+
+      var index = index = this.List.map(x => {return x.name}).indexOf(data.name);
+       return this.nameService.DeleteName(data.id).subscribe(res => {
+        this.List.splice(index, 1)
+         console.log('deleted!')
+  
+       })
+    }
 
 }
