@@ -6,18 +6,32 @@
       <div class="col-md-12">
           <h3>Add Name</h3>
           <form [formGroup]="nameForm" (ngSubmit)="submitForm()" novalidate>
-              <div class="form-group">
+              <div class="form-group" [ngClass]="{'is-invalid': submitted && f.name.errors }">
                   <label>Name</label>
                   <input type="text" formControlName="name" class="form-control" maxlength="20">
+                  <div *ngIf="submitted && f.name.errors" style="font-size: 80%;color:#dc3545;">
+                    <div *ngIf="f.name.errors.required">Title is required</div>
+                  </div>
               </div>
-              <div class="form-group">
+              <div class="form-group" [ngClass]="{'is-invalid': submitted && f.message.errors }">
                   <label>Message</label>
                   <textarea class="form-control" formControlName="message" rows="3" maxlength="50"></textarea>
+                  <div *ngIf="submitted && f.message.errors" style="font-size: 80%;color:#dc3545;">
+                    <div *ngIf="f.message.errors.required">Message is required</div>
+                  </div>
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" (click)="submitForm('add')" *ngIf="show_submit == 1" class="btn btn-primary">Submit</button>
+              <button type="submit" (click)="submitForm('update')" *ngIf="show_edit_submit == 1" class="btn btn-primary">Update</button>
+
           </form>
       </div>
-
+      <div *ngIf="showMsg">
+        <div class="col-md-12">
+          <p class="alert alert-success">
+              <strong>{{message}}</strong>
+          </p>
+        </div>
+      </div>
   </div>
 </div>
 
@@ -43,6 +57,7 @@
                             <td>{{name.message}}</td>
                             <td>
                                 <button type="button" class="btn btn-danger btn-sm" (click)="deleteName(name)">Remove</button>
+                                <button type="button" class="btn btn-primary btn-sm" (click)="editName(name)">Edit</button>
                             </td>
                         </tr>
                     </tbody>

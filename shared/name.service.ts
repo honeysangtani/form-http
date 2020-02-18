@@ -46,6 +46,15 @@ export class NameService {
       catchError(this.errorHandl)
     )
   }
+
+  // UPDATE
+  UpdateName(id, data): Observable<Name> {
+    return this.http.put<Name>(this.baseurl + '/track/' + id, JSON.stringify(data), this.httpOptions)
+    .pipe(
+      retry(1),
+      catchError(this.errorHandl)
+    )
+  }
   
   // Error handling
   errorHandl(error) {
